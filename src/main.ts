@@ -25,7 +25,7 @@ client.on("raw_message", (message) => {
   message.params[3].split(" ").forEach((user: string) => users.add(user));
 });
 
-client.on("chat", (channel, userState, message) => {
+client.on("chat", (_, userState, message) => {
   let element =
     document.getElementById(`user-${userState["display-name"]}`) ??
     createElement(userState["display-name"]!, userState.color);
