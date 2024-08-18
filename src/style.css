@@ -1,8 +1,4 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -15,11 +11,11 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
+  display: flex;
+  align-items: end;
 }
 
 #users{
@@ -29,21 +25,37 @@ body {
   gap: 5px;
   align-items: baseline;
   justify-content: center;
-  /* height: 100vh; */
+  padding: 2%;
+  box-sizing: border-box;
+  overflow: visible;
+  
 }
 
 .user{
   width: 20px;
   aspect-ratio: 1;
   flex-flow: column;
+
+  position: relative;
+  overflow: visible;
+}
+
+.user .icon{
+  position: absolute;
   background-color: gray;
   mask: url("/user.png");
   mask-size: cover;
   image-rendering: pixelated;
+  width: 100%;
+  aspect-ratio: 1;
+  animation: talk 1s steps(3) 0s 1 alternate;
+
 }
 
-.user.talking{
+
+.user.talking .icon{
   animation: talk 1s steps(3) 0s infinite alternate;
+  overflow: visible;
 }
 
 .message{
@@ -51,10 +63,11 @@ body {
   background-color: white;
   color: #000;
   z-index: 10;
-  transform: translate(5%, -100%);
+  transform: translate(0, -100%);
   padding: 5px;
   font-family: monospace;
   border: 2px solid black;
+  overflow: visible;
 }
 
 .message > p{
