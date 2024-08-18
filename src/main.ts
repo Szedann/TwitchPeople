@@ -52,6 +52,9 @@ const createUser = (username: string, color?: string) => {
   if (color) iconElement.style.backgroundColor = color;
   iconElement.className = "icon";
   iconElement.setAttribute("name", "icon");
+  element.style.translate = `${Math.random() * 5 - 2}px ${
+    Math.random() * 5 - 2
+  }px`;
   element.appendChild(iconElement);
   document.getElementById("users")?.appendChild(element);
   return element;

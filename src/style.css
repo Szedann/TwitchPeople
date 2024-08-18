@@ -28,7 +28,7 @@ body {
   padding: 2%;
   box-sizing: border-box;
   overflow: visible;
-  
+  width: 100%;
 }
 
 .user{
@@ -50,6 +50,10 @@ body {
   aspect-ratio: 1;
   animation: talk 1s steps(3) 0s 1 alternate;
 
+}
+
+.user.talking{
+  z-index: 10;
 }
 
 
