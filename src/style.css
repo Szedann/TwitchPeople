@@ -70,6 +70,10 @@ body {
   overflow: visible;
 }
 
+.user:has(.message.piwo) .icon{
+  mask-image: url("/piwo.png");
+}
+
 .message{
   position: absolute;
   background-color: white;

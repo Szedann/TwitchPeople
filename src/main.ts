@@ -31,6 +31,10 @@ client.on("chat", (_, userState, message) => {
   createMessage(element, userState, message);
 });
 
+client.on("messagedeleted", (channel, username, message, userState) => {
+  document.getElementById(userState["target-msg-id"]!)?.remove();
+});
+
 client.on("join", (_, username) => {
   document.getElementById(`user-${username}`) ?? createUser(username);
 });
@@ -72,6 +76,8 @@ const createMessage = (
   contentElement.innerText = content;
   element.appendChild(contentElement);
 
+  if (/piwo/.test(content)) element.classList.add("piwo");
+
   element.className = "message";
 
   const { x } = userElement.getBoundingClientRect();
@@ -85,10 +91,8 @@ const createMessage = (
   userElement!.appendChild(element);
   element.style.left =
     Math.min(window.innerWidth - element.clientWidth - x, -20) + "px";
-  userElement.classList.add("talking");
   element.id = author.id!;
   setTimeout(() => {
-    element.remove();
-    userElement.classList.remove("talking");
+    element?.remove();
   }, 5000);
 };
