@@ -13,16 +13,12 @@ const client = tmi.Client({
 
 client.connect();
 
-let users = new Set<string>();
 client.on("raw_message", (message) => {
-  if (message.command == "366") {
-    console.log(users);
-    users.forEach((user) => {
-      createUser(user);
-    });
-  }
   if (message.command != "353") return;
-  message.params[3].split(" ").forEach((user: string) => users.add(user));
+  (message.params[3] as string)
+    .split(" ")
+    .filter((e) => !/justinfan\w*/.test(e))
+    .forEach((user: string) => createUser(user));
 });
 
 client.on("chat", (_, userState, message) => {
@@ -53,7 +49,7 @@ const createUser = (username: string, color?: string) => {
   iconElement.className = "icon";
   iconElement.setAttribute("name", "icon");
   element.style.translate = `${Math.random() * 5 - 2}px ${
-    Math.random() * 5 - 2
+    Math.random() * 5 - 5
   }px`;
   element.appendChild(iconElement);
   document.getElementById("users")?.appendChild(element);
@@ -78,14 +74,17 @@ const createMessage = (
 
   element.className = "message";
 
-  // const { x, y, right } = userElement.getBoundingClientRect();
-  // if (x < right) element.style.left = x + "px";
-  // else element.style.right = right + "px";
-  // element.style.top = y + "px";
+  const { x } = userElement.getBoundingClientRect();
 
   element.style.top = Math.random() * 15 - 7 + "px";
 
+  // const easterEggElement = document.createElement("img");
+  // easterEggElement.src = "src/piwo.png";
+  // userElement.children.namedItem("icon")!.appendChild(easterEggElement);
+
   userElement!.appendChild(element);
+  element.style.left =
+    Math.min(window.innerWidth - element.clientWidth - x, -20) + "px";
   userElement.classList.add("talking");
   element.id = author.id!;
   setTimeout(() => {

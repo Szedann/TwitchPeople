@@ -25,7 +25,7 @@ body {
   gap: 5px;
   align-items: baseline;
   justify-content: center;
-  padding: 2%;
+  padding: 20px;
   box-sizing: border-box;
   overflow: visible;
   width: 100%;
@@ -35,8 +35,7 @@ body {
   width: 20px;
   aspect-ratio: 1;
   flex-flow: column;
-
-  position: relative;
+  position: static;
   overflow: visible;
 }
 
@@ -48,17 +47,26 @@ body {
   image-rendering: pixelated;
   width: 100%;
   aspect-ratio: 1;
-  animation: talk 1s steps(3) 0s 1 alternate;
 
 }
 
-.user.talking{
+.user .icon img{
+  image-rendering: pixelated;
+  isolation: isolate;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.user:has(.message){
   z-index: 10;
 }
 
 
-.user.talking .icon{
-  animation: talk 1s steps(3) 0s infinite alternate;
+.user:has(.message) .icon{
+  animation: talk 1s steps(3) 0s infinite none;
   overflow: visible;
 }
 
@@ -68,10 +76,15 @@ body {
   color: #000;
   z-index: 10;
   transform: translate(0, -100%);
-  padding: 5px;
+  padding: 8px;
   font-family: monospace;
-  border: 2px solid black;
+  border: 3px solid black;
   overflow: visible;
+  image-rendering: pixelated;
+  width: max-content;
+  max-width: 200px;
+  /* animation: idle 10s linear 0s infinite none; */
+
 }
 
 .message > p{
@@ -80,8 +93,28 @@ body {
 
 @keyframes talk {
   0% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(5px, 5px) rotate(5deg); }
+  25% { transform: translate(3px, -3px) rotate(5deg); }
   50% { transform: translate(0, 0) rotate(0eg); }
-  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  75% { transform: translate(-3px, -3px) rotate(-5deg); }
   100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes idle {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, -5px) rotate(1deg); }
+  50% { transform: translate(0, 0) rotate(0eg); }
+  75% { transform: translate(-5px, -5px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes color {
+  from{
+    background-color: hsl(0, 100%, 50%);
+  }
+  50%{
+    background-color: hsl(180deg, 100%, 50%);
+  }
+  to{
+    background-color: hsl(360deg, 100%, 50%);
+  }
 }
